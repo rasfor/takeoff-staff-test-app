@@ -6,7 +6,8 @@ interface IProps {
 }
 
 const Contacts: React.FC<IProps> = (props) => {
-  if (!props.isAuthorized) return (<Navigate to='/' />)
+  let isAuth = localStorage.getItem("isAuth");
+  if (!isAuth && !props.isAuthorized) return (<Navigate to='/' />)
   else
     return (
       <div> Contacts</div>

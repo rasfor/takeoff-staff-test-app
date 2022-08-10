@@ -6,13 +6,17 @@ import ContactsContainer from './features/Contacts/ContactsContainer';
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/contacts" element={<ContactsContainer />} />
-        </Routes>
-      </Router>
+    <div className="container">
+      <div className="form-wrapper">
+        <div className="App">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/contacts" element={<ContactsContainer />} />
+            </Routes>
+          </Router>
+        </div>
+      </div>
     </div>
   );
 }

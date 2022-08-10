@@ -1,19 +1,25 @@
 import { authApi } from '../api/api';
 import { AppStateType } from './redux-store'
 import { ThunkAction } from 'redux-thunk';
+import { LocalStorage } from "ts-localstorage";
+
 
 const SET_AUTH_USER = 'SET_AUTH_USER';
+const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
+
 
 type InitialStateType = {
   userId: number | null,
   email: string | null,
-  isAuthorized: boolean
+  isAuthorized: boolean,
+  authError: string | null
 }
 
 let ininitializeState: InitialStateType = {
   userId: null,
   email: null,
-  isAuthorized: false
+  isAuthorized: false,
+  authError: null
 }
 
 const authUserReducer = (state = ininitializeState, action: ActionTypes): InitialStateType => {
@@ -22,6 +28,12 @@ const authUserReducer = (state = ininitializeState, action: ActionTypes): Initia
       return {
         ...state,
         ...action.data
+      }
+    }
+    case SET_AUTH_ERROR: {
+      return {
+        ...state,
+        authError: action.authError
       }
     }
     default:
@@ -39,7 +51,12 @@ type setAuthUserActionType = {
   }
 }
 
-type ActionTypes = setAuthUserActionType;
+type setAuthErrorActionType = {
+  type: typeof SET_AUTH_ERROR,
+  authError: string | null
+}
+
+type ActionTypes = setAuthUserActionType | setAuthErrorActionType;
 
 export const setAuthUser = (userId: number | null, email: string | null, isAuthorized: boolean): setAuthUserActionType => {
   return {
@@ -53,20 +70,38 @@ export const setAuthUser = (userId: number | null, email: string | null, isAutho
   }
 }
 
+export const setAuthError = (authError: string | null): setAuthErrorActionType => {
+  return {
+    type: SET_AUTH_ERROR,
+    authError
+
+  }
+}
+
+const setLocalStorageData = (id: string, isAuth: string) => {
+  localStorage.setItem("userId", id);
+  localStorage.setItem("isAuth", isAuth);
+}
+
+type CustomError = {
+  response: {
+    data: string
+  }
+}
+
 export const login = (payload: object): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
   return async (dispatch) => {
-    const response = await authApi.login(payload)
-    if (response.data.accessToken !== null) {
-      let { id, email } = response.data.user;
-      dispatch(setAuthUser(id, email, true))
+    try {
+      const response = await authApi.login(payload)
+      if (response.data !== null) {
+        let { id, email } = response.data.user;
+        dispatch(setAuthUser(id, email, true));
+        setLocalStorageData(id, 'true')
+      }
     }
-    else {
-      debugger;
+    catch {
+      dispatch(setAuthError("Something was wrong! Try again!"));
     }
-    // else {
-    //   let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-    //   dispatch(stopSubmit("login", { _error: message }));
-    // }
   }
 }
 
