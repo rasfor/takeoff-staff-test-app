@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/redux-store';
 import Contacts from './Contacts';
-import { getUserContacts, UserType, deleteContact, addNewContact } from '../../redux/contactsReducer';
+import { getUserContacts, UserType, deleteContact, addNewContact, updateContact } from '../../redux/contactsReducer';
 import { logout } from '../../redux/loginReducer';
 
 type mapStateToPropsType = {
@@ -14,7 +14,8 @@ type mapDispatchToProps = {
   getUserContacts: () => void,
   logout: () => void,
   deleteContact: (id: number) => void,
-  addNewContact: (data: object) => void
+  addNewContact: (data: object) => void,
+  updateContact: (id: number, data: object) => void
 }
 
 const ContactsContainer: React.FC<mapStateToPropsType & mapDispatchToProps> = (props) => {
@@ -35,4 +36,4 @@ let matchStateToProps = (state: AppStateType) => {
   }
 }
 
-export default connect(matchStateToProps, { getUserContacts, logout, deleteContact, addNewContact })(ContactsContainer);
+export default connect(matchStateToProps, { getUserContacts, logout, deleteContact, addNewContact, updateContact })(ContactsContainer);

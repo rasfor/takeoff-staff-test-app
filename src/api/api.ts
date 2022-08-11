@@ -27,8 +27,8 @@ export const contactsApi = {
   getUserContacts() {
     return instance.get(`/contacts`);
   },
-  updateContact(data: object) {
-    return instance.put(`/contacts`, data);
+  updateContact(id: number, data: object) {
+    return instance.put(`/contacts/${id}`, data);
   }
 };
 

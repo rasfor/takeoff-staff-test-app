@@ -15,7 +15,8 @@ interface IProps {
   isAuthorized: boolean,
   contacts: Array<UserType>,
   logout: () => void,
-  deleteContact: (id: number) => void
+  deleteContact: (id: number) => void,
+  updateContact: (id: number, data: object) => void
 }
 
 const Contacts: React.FC<IProps> = (props) => {
@@ -32,7 +33,7 @@ const Contacts: React.FC<IProps> = (props) => {
   let userContacts = props.contacts.map((contact) => {
     return (
       <Col key={contact.id}>
-        <Contact {...contact} deleteContact={props.deleteContact} />
+        <Contact {...contact} deleteContact={props.deleteContact} updateContact={props.updateContact} />
       </Col>
     )
   })

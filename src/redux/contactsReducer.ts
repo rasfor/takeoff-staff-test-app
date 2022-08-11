@@ -89,8 +89,16 @@ export const addNewContact = (data: object): ThunkAction<Promise<void>, AppState
   return async (dispatch) => {
     const response = await contactsApi.addContact(data)
     if (response.data !== null) {
-      const secondResponse = await contactsApi.getUserContacts()
-      if (secondResponse.data.length !== null) dispatch(setUserContacts(secondResponse.data));
+      dispatch(getUserContacts());
+    }
+  }
+}
+
+export const updateContact = (id: number, data: object): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
+  return async (dispatch) => {
+    const response = await contactsApi.updateContact(id, data)
+    if (response.data !== null) {
+      dispatch(getUserContacts());
     }
   }
 }
