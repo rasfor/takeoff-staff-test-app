@@ -36,7 +36,7 @@ const Login: React.FC<mapDispatchToPropsType & mapStateToPropsType> = (props) =>
     props.login(formData);
   }
 
-  if (props.isAuthorized) return (<Navigate to="/contacts" />)
+  if (props.isAuthorized) return (<Navigate to="/" />)
   return (
     <LoginForm onSubmit={onSubmit} authError={props.authError} />
   )

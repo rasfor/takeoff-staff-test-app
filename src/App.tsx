@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './features/Login/Login';
 import ContactsContainer from './features/Contacts/ContactsContainer';
+import NewContact from './features/Contacts/NewContact/NewContact';
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
         <div className="App">
           <Router>
             <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/contacts" element={<ContactsContainer />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<ContactsContainer />} />
+              <Route path="/newContact" element={<NewContact />} />
             </Routes>
           </Router>
         </div>

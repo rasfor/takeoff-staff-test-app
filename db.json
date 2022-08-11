@@ -4,11 +4,23 @@
       "email": "test@mail.ru",
       "password": "$2a$10$9cjRMB6DTs6Z8N6WP2Hi6OtcPz3ks6uI4h1V1AGyF1SKE8cwe8Aca",
       "id": 1
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Tommy Hilfiger",
+      "number": 89634561253,
+      "id": 1
     },
     {
-      "email": "nekota@mail.ru",
-      "password": "$2a$10$YJ2czPHFx/Lh6WDJiNWfF.1CVef9BeKyDX4QKGiBcecv0MZ9yPxY.",
-      "id": 2
+      "name": "Leila",
+      "number": 89634562565,
+      "id": 3
+    },
+    {
+      "name": "Tecna",
+      "number": 4569631256,
+      "id": 4
     }
   ]
 }

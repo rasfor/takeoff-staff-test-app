@@ -78,17 +78,6 @@ export const setAuthError = (authError: string | null): setAuthErrorActionType =
   }
 }
 
-const setLocalStorageData = (id: string, isAuth: string) => {
-  localStorage.setItem("userId", id);
-  localStorage.setItem("isAuth", isAuth);
-}
-
-type CustomError = {
-  response: {
-    data: string
-  }
-}
-
 export const login = (payload: object): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
   return async (dispatch) => {
     try {
@@ -96,7 +85,7 @@ export const login = (payload: object): ThunkAction<Promise<void>, AppStateType,
       if (response.data !== null) {
         let { id, email } = response.data.user;
         dispatch(setAuthUser(id, email, true));
-        setLocalStorageData(id, 'true')
+        localStorage.setItem("isAuth", 'true');
       }
     }
     catch {
@@ -107,10 +96,8 @@ export const login = (payload: object): ThunkAction<Promise<void>, AppStateType,
 
 export const logout = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
   return async (dispatch) => {
-    const response = await authApi.logout()
-    if (response.data.resultCode === 0) {
-      dispatch(setAuthUser(null, null, false));
-    }
+    localStorage.clear();
+    dispatch(setAuthUser(null, null, false));
   }
 }
 

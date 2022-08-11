@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/redux-store';
 import Contacts from './Contacts';
-
+import { getUserContacts, UserType, deleteContact, addNewContact } from '../../redux/contactsReducer';
+import { logout } from '../../redux/loginReducer';
 
 type mapStateToPropsType = {
-  isAuthorized: boolean
+  isAuthorized: boolean,
+  contacts: Array<UserType>
 }
 
-const ContactsContainer: React.FC<mapStateToPropsType> = (props) => {
+type mapDispatchToProps = {
+  getUserContacts: () => void,
+  logout: () => void,
+  deleteContact: (id: number) => void,
+  addNewContact: (data: object) => void
+}
+
+const ContactsContainer: React.FC<mapStateToPropsType & mapDispatchToProps> = (props) => {
+
+  useEffect(() => {
+    props.getUserContacts();
+  }, [])
+
   return (
     <Contacts {...props} />
   )
@@ -16,8 +30,9 @@ const ContactsContainer: React.FC<mapStateToPropsType> = (props) => {
 
 let matchStateToProps = (state: AppStateType) => {
   return {
-    isAuthorized: state.login.isAuthorized
+    isAuthorized: state.login.isAuthorized,
+    contacts: state.contacts.contacts
   }
 }
 
-export default connect(matchStateToProps, {})(ContactsContainer);
+export default connect(matchStateToProps, { getUserContacts, logout, deleteContact, addNewContact })(ContactsContainer);

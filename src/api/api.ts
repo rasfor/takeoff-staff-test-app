@@ -17,4 +17,19 @@ export const authApi = {
   }
 };
 
+export const contactsApi = {
+  addContact(payload: object) {
+    return instance.post(`/contacts`, payload);
+  },
+  deleteContact(id: number) {
+    return instance.delete(`/contacts/${id}`);
+  },
+  getUserContacts() {
+    return instance.get(`/contacts`);
+  },
+  updateContact(data: object) {
+    return instance.put(`/contacts`, data);
+  }
+};
+
 
