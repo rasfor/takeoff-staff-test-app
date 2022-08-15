@@ -6,6 +6,10 @@
 
 ### `json-server db.json -m ./node_modules/json-server-auth`
 
+Перед его запуском необходимо выполнить
+###`npm install` 
+###`npm install -D json-server json-server-auth`
+
 Сервер запустится по адресу http://localhost:3000
 
 ## Далее создаем новый терминал и запускаем само приложение
